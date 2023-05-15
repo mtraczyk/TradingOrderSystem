@@ -1,13 +1,13 @@
-package com.trading.system.demo;
+package com.trading.system.ib.gateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class IBGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(IBGatewayApplication.class, args);
 	}
 
 }

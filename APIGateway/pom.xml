@@ -9,10 +9,15 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.trading.system</groupId>
-	<artifactId>demo</artifactId>
+	<artifactId>APIGateway</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
+	<packaging>pom</packaging>
+	<name>APIGateway</name>
 	<description>Trading Order System</description>
+	<modules>
+		<module>IBGateway</module>
+		<module>LogicGateway</module>
+	</modules>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
