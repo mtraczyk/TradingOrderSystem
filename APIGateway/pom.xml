@@ -14,28 +14,28 @@
 	<packaging>pom</packaging>
 	<name>APIGateway</name>
 	<description>Trading Order System</description>
+
 	<modules>
 		<module>IBGateway</module>
 		<module>LogicGateway</module>
 	</modules>
+
 	<properties>
 		<java.version>17</java.version>
+		<spring.boot.version>3.0.6</spring.boot.version>
 	</properties>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter</artifactId>
+			<artifactId>spring-boot-starter-web</artifactId>
+			<version>${spring.boot.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-devtools</artifactId>
-			<scope>runtime</scope>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
+			<version>${spring.boot.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -45,6 +45,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring.boot.version}</version>
 			</plugin>
 		</plugins>
 	</build>

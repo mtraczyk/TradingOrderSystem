@@ -10,4 +10,16 @@
     </parent>
 
     <artifactId>IBGateway</artifactId>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                    <include>**/*.yml</include>
+                </includes>
+            </resource>
+        </resources>
+    </build>
 </project>
