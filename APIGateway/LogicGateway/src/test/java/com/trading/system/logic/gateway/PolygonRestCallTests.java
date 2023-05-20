@@ -21,12 +21,15 @@ public class PolygonRestCallTests {
 	@Test
 	public void contextLoads() {
 		assertThat(restTemplate).isNotNull();
+		assertThat(polygonRestCall).isNotNull();
 	}
 
 	@Test
 	public void testCall() {
 		var response = polygonRestCall.getAggregateBars("AAPL", "1", "day", "2023-01-01", "2023-01-06");
 		assertThat(response).isNotNull();
+
+		System.out.println(response);
 	}
 
 }
