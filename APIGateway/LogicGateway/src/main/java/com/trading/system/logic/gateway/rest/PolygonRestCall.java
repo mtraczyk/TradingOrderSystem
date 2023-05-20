@@ -5,7 +5,6 @@ import com.trading.system.logic.gateway.data.AggregateBarQuoteResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -16,25 +15,17 @@ public class PolygonRestCall {
     private static final Logger LOGGER = LoggerFactory.getLogger(PolygonRestCall.class);
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
+    private final String polygonApiKey;
 
-    @Value(value = "${polygon.api.key}")
-    private static final String polygonApiKey = null;
-
-    public PolygonRestCall(RestTemplate restTemplate) {
+    public PolygonRestCall(RestTemplate restTemplate, @Value("${polygon.api.key}") String polygonApiKey) {
         this.restTemplate = restTemplate;
         this.objectMapper = new ObjectMapper();
+        this.polygonApiKey = polygonApiKey;
     }
 
-    @Bean
-    public String getPolygonApiKey() {
-        String a = polygonApiKey;
-
-        return polygonApiKey;
-    }
-
-    // rest call for aggregate bars from Polygon.io /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}
+    // rest call for aggregate bars from Polygon.io /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}?apiKey={apiKey}
     public AggregateBarQuoteResponse getAggregateBars(String stocksTicker, String multiplier, String timespan, String from, String to) {
-        String urlTemplate = "https://api.polygon.io/v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}?apiKey={polygonApiKey}";
+        String urlTemplate = String.format("https://api.polygon.io/v2/aggs/ticker/%s/range/%s/%s/%s/%s?apiKey=%s", stocksTicker, multiplier, timespan, from, to, polygonApiKey);
 
         return restTemplate.execute(urlTemplate, HttpMethod.GET, null, response -> {
             if (response.getStatusCode() == HttpStatus.OK) {
