@@ -40,8 +40,9 @@ public class DummyBotScheduler {
         String restCallResult = Arrays.toString(aggregatesBarQuotes);
         LOGGER.info("Polygon API call result: {}", restCallResult);
 
-        // invoke a python script to do the logic
-        // python script will return a list of buy/sell signals
-        // for each signal, call the order gateway to place the order
+        /* invoke a python script to do the logic
+         python script will return a list of buy/sell signals
+         for each signal, call the order gateway to place the order */
+        
     }
 }
