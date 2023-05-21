@@ -2,6 +2,7 @@ package com.trading.system.logic.gateway.schedulers;
 
 import com.trading.system.logic.gateway.data.AggregatesBarQuote;
 import com.trading.system.logic.gateway.rest.PolygonRestCall;
+import com.trading.system.logic.gateway.script.invokers.ScriptInvoker;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -43,6 +44,10 @@ public class DummyBotScheduler {
         /* invoke a python script to do the logic
          python script will return a list of buy/sell signals
          for each signal, call the order gateway to place the order */
-        
+        try {
+            ScriptInvoker.invokeBot("APIGateway/LogicGateway/BotsLogic/dummy-bot.py");
+        } catch (Exception e) {
+            LOGGER.error("Error invoking dummy bot logic", e);
+        }
     }
 }
