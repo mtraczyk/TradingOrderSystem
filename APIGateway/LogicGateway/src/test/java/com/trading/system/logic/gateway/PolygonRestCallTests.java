@@ -31,5 +31,4 @@ class PolygonRestCallTests {
 
 		System.out.println(response);
 	}
-
 }

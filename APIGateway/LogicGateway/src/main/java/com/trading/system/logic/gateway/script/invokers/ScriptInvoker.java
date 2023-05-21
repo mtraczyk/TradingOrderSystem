@@ -1,5 +1,7 @@
 package com.trading.system.logic.gateway.script.invokers;
 
+import com.trading.system.data.OrderType;
+import com.trading.system.logic.gateway.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -13,6 +15,7 @@ public class ScriptInvoker {
         throw new IllegalStateException("Utility class");
     }
     public static void invokeBot(String scriptPath) throws Exception {
+        // TODO: fetch data from polygon.io and give it as a parameter to the script
         ProcessBuilder processBuilder = new ProcessBuilder("python", scriptPath);
         processBuilder.redirectErrorStream(true);
 
@@ -20,14 +23,12 @@ public class ScriptInvoker {
         int exitCode = process.waitFor();
         BufferedReader bfr = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
-        String nextLine;
-        StringBuilder builderResults = new StringBuilder();
-        while ((nextLine = bfr.readLine()) != null) {
-            builderResults.append(nextLine);
-        }
-        String results = builderResults.toString();
+        String stringOrderType = bfr.readLine();
+        String stringSymbol = bfr.readLine();
 
         LOGGER.info("Exit code of {}: {}", scriptPath, exitCode);
-        LOGGER.info("Output of {}: {}", scriptPath, results);
+        LOGGER.info("Output of {}: {} {}", scriptPath, stringOrderType, stringSymbol);
+
+        Utils.createAndSendOrderInstruction(stringSymbol, OrderType.fromString(stringOrderType).orElseThrow());
     }
 }
