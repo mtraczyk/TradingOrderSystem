@@ -21,6 +21,7 @@ public class PolygonRestCall {
     // rest call for aggregate bars from Polygon.io /v2/aggs/ticker/{stocksTicker}/range/{multiplier}/{timespan}/{from}/{to}?apiKey={apiKey}
     public AggregateBarQuoteResponse getAggregateBars(String stocksTicker, String multiplier, String timespan, String from, String to) {
         String urlTemplate = String.format("https://api.polygon.io/v2/aggs/ticker/%s/range/%s/%s/%s/%s?apiKey=%s", stocksTicker, multiplier, timespan, from, to, polygonApiKey);
+        LOGGER.info("Calling Polygon.io API with url: {}", urlTemplate);
 
         return restTemplate.getForObject(urlTemplate, AggregateBarQuoteResponse.class);
     }
