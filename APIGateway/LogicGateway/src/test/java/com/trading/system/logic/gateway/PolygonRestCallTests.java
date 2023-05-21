@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootTest
-public class PolygonRestCallTests {
+class PolygonRestCallTests {
 
 	@Autowired
 	private RestTemplate restTemplate;
@@ -19,13 +19,13 @@ public class PolygonRestCallTests {
 	private PolygonRestCall polygonRestCall;
 
 	@Test
-	public void contextLoads() {
+	void contextLoads() {
 		assertThat(restTemplate).isNotNull();
 		assertThat(polygonRestCall).isNotNull();
 	}
 
 	@Test
-	public void testCall() {
+	void testCall() {
 		var response = polygonRestCall.getAggregateBars("AAPL", "1", "day", "2023-01-01", "2023-01-06");
 		assertThat(response).isNotNull();
 
