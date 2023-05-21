@@ -18,21 +18,11 @@
 	<modules>
 		<module>IBGateway</module>
 		<module>LogicGateway</module>
+		<module>Commons</module>
 	</modules>
 
 	<properties>
 		<java.version>17</java.version>
 		<spring.boot.version>3.0.6</spring.boot.version>
 	</properties>
-
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring.boot.version}</version>
-			</plugin>
-		</plugins>
-	</build>
-
 </project>
