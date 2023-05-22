@@ -1,6 +1,5 @@
 package com.trading.system.logic.gateway.utils;
 
-import com.google.gson.Gson;
 import com.trading.system.data.OrderInstruction;
 import com.trading.system.data.OrderType;
 import org.slf4j.Logger;
@@ -19,9 +18,4 @@ public class Utils {
         return orderInstruction;
     }
 
-    public static <T> byte[] serializeUsingGson(T object) {
-        LOGGER.info("Serializing object");
-
-        return new Gson().toJson(object).getBytes();
-    }
 }

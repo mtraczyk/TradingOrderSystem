@@ -5,13 +5,13 @@ import com.trading.system.logic.gateway.data.AggregatesBarQuote;
 import com.trading.system.logic.gateway.mq.Producer;
 import com.trading.system.logic.gateway.rest.PolygonRestCall;
 import com.trading.system.logic.gateway.script.invokers.ScriptInvoker;
-import com.trading.system.logic.gateway.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import utils.Utils;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
