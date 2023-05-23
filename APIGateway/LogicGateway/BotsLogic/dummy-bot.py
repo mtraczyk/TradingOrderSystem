@@ -1,1 +1,2 @@
-print("Hello from dummy-bot.py")
+print("BUY")
+print("VOO")
