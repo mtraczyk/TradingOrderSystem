@@ -7,4 +7,4 @@ if [ $# -eq 0 ]
     tag="$1"
 fi
 
-docker build -t apigateway-commons:$tag .
+docker build -t apigateway_logicgateway:$tag .

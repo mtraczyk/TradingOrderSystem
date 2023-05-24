@@ -3,6 +3,7 @@ package com.trading.system.logic.gateway.mq;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,10 +13,16 @@ import java.util.concurrent.TimeoutException;
 @Configuration
 public class Config {
 
+    private final String rabbitMqUrl;
+
+    public Config(@Value("${rabbitmq.url.host}") String rabbitMqUrl) {
+        this.rabbitMqUrl = rabbitMqUrl;
+    }
+
     @Bean
     public ConnectionFactory connectionFactory() {
         ConnectionFactory connectionFactory = new ConnectionFactory();
-        connectionFactory.setHost("localhost");
+        connectionFactory.setHost(rabbitMqUrl);
 
         return connectionFactory;
     }

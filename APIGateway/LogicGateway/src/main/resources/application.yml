@@ -5,3 +5,7 @@ polygon:
 bots:
   dummy:
     windowSize: 20
+
+rabbitmq:
+  url:
+    host: "host.docker.internal"
