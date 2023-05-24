@@ -9,8 +9,7 @@ public enum OrderType {
     BUY("BUY"), SELL("SELL"), SHORT("SHORT");
 
     private final String stringOrderType;
-    private static final Map<String, OrderType> stringToEnum =
-            Stream.of(values()).collect(Collectors.toMap(Object::toString, e -> e));
+    private static final Map<String, OrderType> stringToEnum = Stream.of(values()).collect(Collectors.toMap(Object::toString, e -> e));
 
     OrderType(String stringOrderType) {
         this.stringOrderType = stringOrderType;

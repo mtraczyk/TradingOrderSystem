@@ -1,6 +1,6 @@
 FROM openjdk:17-oracle
 
-ARG JAR_FILE=target/IBGateway-0.0.1-SNAPSHOT.jar
+ARG JAR_FILE=target/Commons-0.0.1-SNAPSHOT.jar
 
 WORKDIR /opt/app
 
