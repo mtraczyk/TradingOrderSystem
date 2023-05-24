@@ -2,6 +2,7 @@ package com.trading.system.logic.gateway.mq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
+import jakarta.annotation.PreDestroy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,7 @@ public class Producer {
         channel.basicPublish("", queueName, null, message);
     }
 
+    @PreDestroy
     public void close() throws IOException, TimeoutException {
         LOGGER.info("Closing producer");
 

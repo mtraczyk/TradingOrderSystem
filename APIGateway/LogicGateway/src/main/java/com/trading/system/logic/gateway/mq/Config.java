@@ -26,16 +26,10 @@ public class Config {
     }
 
     @Bean
-    public Channel channel(Connection connection) throws IOException, TimeoutException {
-        try (Channel channel = connection.createChannel()) {
-            channel.queueDeclare("IBGatewayQueue", false, false, false, null);
-
-            return channel;
-        } catch (Exception e) {
-            e.printStackTrace();
-
-            throw e;
-        }
+    public Channel channel(Connection connection) throws IOException {
+        Channel channel = connection.createChannel();
+        channel.queueDeclare("IBGatewayQueue", false, false, false, null);
+        return channel;
     }
 
 }
