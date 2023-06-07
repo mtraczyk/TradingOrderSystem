@@ -8,4 +8,4 @@ bots:
 
 rabbitmq:
   url:
-    host: "rabbitmq"
+    host: "host.docker.internal"

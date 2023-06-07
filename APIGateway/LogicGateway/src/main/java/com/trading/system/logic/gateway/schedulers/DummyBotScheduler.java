@@ -52,7 +52,7 @@ public class DummyBotScheduler {
          python script will return a list of buy/sell signals
          for each signal, call the order gateway to place the order */
         try {
-            OrderInstruction orderInstruction = ScriptInvoker.invokeBot("APIGateway/LogicGateway/BotsLogic/dummy-bot.py");
+            OrderInstruction orderInstruction = ScriptInvoker.invokeBot("./BotsLogic/dummy-bot.py");
             producer.send(Utils.serializeUsingGson(orderInstruction), QUEUE_NAME);
         } catch (InterruptedException | IOException e) {
             producer.close();

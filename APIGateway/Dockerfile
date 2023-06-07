@@ -5,4 +5,4 @@ WORKDIR /opt/app
 COPY . .
 RUN mvn clean install
 
-CMD mvn spring-boot:run
+RUN mvn spring-boot:run
