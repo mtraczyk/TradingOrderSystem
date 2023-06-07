@@ -8,4 +8,4 @@ bots:
 
 rabbitmq:
   url:
-    host: "10.0.10.102"
+    host: "rabbitmq"

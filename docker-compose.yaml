@@ -1,4 +1,4 @@
-version: '2'
+version: '3.3'
 
 services:
   rabbitmq:
@@ -9,7 +9,9 @@ services:
 #    volumes:
   logic_gateway:
     build:
-      context: "APIGateway/LogicGateway"
+      context: "APIGateway"
       dockerfile: "Dockerfile"
     depends_on:
+      - rabbitmq
+    links:
       - rabbitmq

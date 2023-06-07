@@ -28,21 +28,42 @@ public class Config {
     }
 
     @Bean
-    public Connection connection(ConnectionFactory connectionFactory) throws IOException, TimeoutException {
-        return connectionFactory.newConnection();
+    public Connection connection(ConnectionFactory connectionFactory) throws InterruptedException {
+        Connection connection = null;
+        boolean isConnected = false;
+
+        while (!isConnected) {
+            try (Connection conn = connectionFactory.newConnection()) {
+                isConnected = conn.isOpen();
+                connection = conn;
+            } catch (Exception e) {
+                LOGGER.info("RabbitMQ is not available yet");
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException interruptedException) {
+                    LOGGER.error("Error while sleeping", interruptedException);
+                    throw interruptedException;
+                }
+
+            }
+        }
+
+        return connection;
     }
 
     @Bean
     public Channel channel(Connection connection) throws IOException, TimeoutException {
-        try (Channel channel = connection.createChannel()) {
-            channel.queueDeclare("IBGatewayQueue", false, false, false, null);
+        Channel channel;
 
-            return channel;
+        try (Channel auxChannel = connection.createChannel()) {
+            channel = auxChannel;
         } catch (Exception e) {
-            e.printStackTrace();
-
+            LOGGER.error("Error while creating channel", e);
             throw e;
         }
+
+        channel.queueDeclare("IBGatewayQueue", false, false, false, null);
+        return channel;
     }
 
 }

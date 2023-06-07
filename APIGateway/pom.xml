@@ -16,7 +16,6 @@
 	<description>Trading Order System</description>
 
 	<modules>
-		<module>IBGateway</module>
 		<module>LogicGateway</module>
 		<module>Commons</module>
 	</modules>
