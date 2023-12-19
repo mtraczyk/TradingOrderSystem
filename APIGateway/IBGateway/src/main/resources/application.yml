@@ -1,0 +1,6 @@
+rabbitmq:
+  url:
+    host: "host.docker.internal"
+
+server:
+  port : 8081

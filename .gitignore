@@ -2,4 +2,8 @@
 target
 .DS_Store
 ../.DS_Store
-*.iml
+.iml
+/APIGateway/LogicGateway/LogicGateway.iml
+/APIGateway/IBGateway/IBGateway.iml
+/APIGateway/Commons/Commons.iml
+/APIGateway/APIGateway.iml

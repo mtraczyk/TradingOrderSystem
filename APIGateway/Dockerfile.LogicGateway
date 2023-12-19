@@ -1,0 +1,16 @@
+FROM maven:3.8.5-openjdk-17 AS maven
+
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+
+RUN mvn package
+
+FROM openjdk:17-jdk-slim
+
+ARG JAR_FILE=LogicGateway-0.0.1-SNAPSHOT.jar
+
+WORKDIR /opt/app
+
+COPY --from=maven /usr/src/app/LogicGateway/target/${JAR_FILE} /opt/app/
+COPY --from=maven /usr/src/app/LogicGateway/BotsLogic/* /opt/app/bots/
+ENTRYPOINT ["java","-jar","LogicGateway-0.0.1-SNAPSHOT.jar"]

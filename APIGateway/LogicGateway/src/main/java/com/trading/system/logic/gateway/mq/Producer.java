@@ -1,39 +1,43 @@
 package com.trading.system.logic.gateway.mq;
 
-import com.rabbitmq.client.Channel;
-import com.rabbitmq.client.Connection;
-import jakarta.annotation.PreDestroy;
+import org.springframework.amqp.core.Message;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.MessageBuilder;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
-
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 @Service
 public class Producer {
-
     private static final Logger LOGGER = LoggerFactory.getLogger(Producer.class);
+    private final RabbitTemplate rabbitTemplate;
 
-    private final Channel channel;
-    private final Connection connection;
-
-    public Producer(Channel channel, Connection connection) {
-        this.channel = channel;
-        this.connection = connection;
+    public Producer(RabbitTemplate rabbitTemplate) {
+        this.rabbitTemplate = rabbitTemplate;
     }
 
-    public void send(byte[] message, String queueName) throws IOException {
-        LOGGER.info("Sending message to queue with a size of {}: {}", queueName, message.length);
+    public void send(byte[] message) throws IOException {
+        LOGGER.info("Sending message with a size of {}", message.length);
 
-        channel.basicPublish("", queueName, null, message);
-    }
+        Message newMessage = MessageBuilder.withBody(message).build();
+        Message result = rabbitTemplate.sendAndReceive(Config.RPC_EXCHANGE, Config.RPC_MESSAGE_QUEUE, newMessage);
 
-    @PreDestroy
-    public void close() throws IOException, TimeoutException {
-        LOGGER.info("Closing producer");
+        String response = "";
+        if (result != null) {
+            // To get message sent correlationId
+            String correlationId = newMessage.getMessageProperties().getCorrelationId();
 
-        channel.close();
-        connection.close();
+            response = new String(result.getBody());
+            if (response.equals(correlationId)) {
+                LOGGER.info("The correlation id is the same as the message id");
+            } else {
+                LOGGER.info("The correlation id is not the same as the message id");
+            }
+
+            LOGGER.info("For correlation id {}, got a response: {}", correlationId, response);
+        } else {
+            LOGGER.info("No response received");
+        }
     }
 }

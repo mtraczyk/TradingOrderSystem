@@ -23,7 +23,6 @@ import java.util.concurrent.TimeoutException;
 @EnableScheduling
 public class DummyBotScheduler {
     private static final Logger LOGGER = LoggerFactory.getLogger(DummyBotScheduler.class);
-    private static final String QUEUE_NAME = "IBGatewayQueue";
     private final PolygonRestCall polygonRestCall;
     private final int windowSize;
     private final Producer producer;
@@ -52,11 +51,10 @@ public class DummyBotScheduler {
          python script will return a list of buy/sell signals
          for each signal, call the order gateway to place the order */
         try {
-            OrderInstruction orderInstruction = ScriptInvoker.invokeBot("APIGateway/LogicGateway/BotsLogic/dummy-bot.py");
-            producer.send(Utils.serializeUsingGson(orderInstruction), QUEUE_NAME);
+            OrderInstruction orderInstruction = ScriptInvoker.invokeBot("/Users/mac/IdeaProjects/TradingOrderSystemM/APIGateway/LogicGateway/BotsLogic/dummy-bot.py");
+            producer.send(Utils.serializeUsingGson(orderInstruction));
         } catch (InterruptedException | IOException e) {
-            producer.close();
-
+            LOGGER.error("Error in invoking python script and sending the order", e);
             throw e;
         }
 
